@@ -116,8 +116,13 @@ public class EditPanel {
 	}
 
 	public void setTile() {
+		int x = (int)((window.getMouseCoords().x + camera.getX()) / SCALE);
+		int y = (int)((window.getMouseCoords().y + camera.getY()) / SCALE);
+		
 		if (window.isMousePressed(0)) {
-			map[(int) (window.getMouseCoords().x/SCALE + (camera.getX()/SCALE))][(int) (window.getMouseCoords().y/SCALE + (camera.getY()/SCALE))] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), (int) window.getMouseCoords().x * SCALE, (int) window.getMouseCoords().y * SCALE, SCALE, SCALE, true);
+			map[x][y] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true);
+		} else if (window.isMousePressed(1)) {
+			map[x][y] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
 		}
 	}
 	
