@@ -7,10 +7,12 @@ import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
 import com.gnarly.engine.utils.Hitbox;
 import com.gnarly.engine.utils.Library;
+import com.gnarly.engine.utils.MapManager;
 import com.gnarly.game.objects.Player;
 import com.gnarly.game.objects.Tile;
 import com.gnarly.game.objects.UIButton;
 import com.gnarly.game.objects.UIImage;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class PlayPanel {
 
@@ -23,6 +25,7 @@ public class PlayPanel {
 	private UIImage hud;
 	private UIImage plate;
 	private UIButton button, button1, button2, button3, button4, button5, button6, button7, arrowButton;
+	private MapManager mapManager;
 	
 	public PlayPanel(Camera camera, Window window, Library library) {
 		this.camera = camera;
@@ -38,7 +41,7 @@ public class PlayPanel {
 		button6 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1275, 25, SCALE / 16 * 32, SCALE / 16 * 32);
 		button7 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1425, 25, SCALE / 16 * 32, SCALE / 16 * 32);
 		arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16);
-		player = new Player(window, camera, library.getTexture("Samby.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
+		player = new Player(window, camera, library.getTexture("Gnarly.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
 	}
 	
 	//Updates all the elements of the panel nad the camera
@@ -142,28 +145,7 @@ public class PlayPanel {
 	//Loads a map based on an array of ints
 	//0 = Stone Floor
 	//1 = Brick Wall
-	//2 = Circular Wall
-	public void setMap(int[][] map) {
-		width = map.length;
-		height = map[0].length;
-		this.map = new Tile[width][height];
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map.length; j++) {
-				switch(map[i][j]) {
-					case 0:
-						this.map[i][j] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), i * SCALE, j * SCALE, SCALE, SCALE, false);
-						break;
-					case 1:
-						this.map[i][j] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), i * SCALE, j * SCALE, SCALE, SCALE, true);
-						break;
-					case 2:
-						this.map[i][j] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), i * SCALE, j * SCALE, SCALE, SCALE, true);
-						break;
-					default:
-						this.map[i][j] = new Tile(camera, library.getTexture("Floor 1.png"), library.getShader("default"), i * SCALE, j * SCALE, SCALE, SCALE, false);
-						break;
-				};
-			}
-		}
+	public void setMap() {
+		this.map = mapManager.loadMap("map", camera, library, (int) SCALE);
 	}
 }

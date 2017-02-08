@@ -4,6 +4,7 @@ import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
 import com.gnarly.engine.utils.Hitbox;
 import com.gnarly.engine.utils.Library;
+import com.gnarly.game.panels.EditPanel;
 import com.gnarly.game.panels.PlayPanel;
 
 public class Main implements Runnable {
@@ -11,7 +12,7 @@ public class Main implements Runnable {
 	private Window window;
 	private Library library;
 	private Camera camera;
-	private PlayPanel panel;
+	private EditPanel panel;
 	private Thread gameLoop;
 	private int[][] map = new int[32][32];
 	
@@ -33,7 +34,6 @@ public class Main implements Runnable {
 		camera = new Camera(1920, 1080);
 		window = new Window(camera, "Clatab Bunky Bab Mazgam", 1, true, false, false);
 		library = new Library("res/img", "res/shader");
-		panel = new PlayPanel(camera, window, library);
 		//Creates the map and loads it into panel
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
@@ -45,7 +45,8 @@ public class Main implements Runnable {
 					map[i][j] = 0;
 			}
 		}
-		panel.setMap(map);
+		panel = new EditPanel(camera, window, library);
+		panel.setMap();
 	}
 	
 	private void update() {

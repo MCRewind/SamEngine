@@ -68,4 +68,8 @@ public class Tile {
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
+	
+	public Texture getTexture() {
+		return texture;
+	}
 }
