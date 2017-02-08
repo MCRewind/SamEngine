@@ -9,6 +9,7 @@ import com.gnarly.engine.utils.Hitbox;
 import com.gnarly.engine.utils.Library;
 import com.gnarly.game.objects.Player;
 import com.gnarly.game.objects.Tile;
+import com.gnarly.game.objects.UIButton;
 import com.gnarly.game.objects.UIImage;
 
 public class PlayPanel {
@@ -20,11 +21,23 @@ public class PlayPanel {
 	private Tile[][] map;
 	private Player player;
 	private UIImage hud;
+	private UIImage plate;
+	private UIButton button, button1, button2, button3, button4, button5, button6, button7, arrowButton;
 	
 	public PlayPanel(Camera camera, Window window, Library library) {
 		this.camera = camera;
 		this.library = library;
 		hud = new UIImage(camera, library.getTexture("HUD.png"), library.getShader("default"), 10, 10, SCALE / 16 * 50, SCALE / 16 * 25);
+		plate = new UIImage(camera, library.getTexture("Plate.png"), library.getShader("default"), 350, 10, SCALE / 16 * 316, SCALE / 16 * 40);
+		button = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 385, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button1 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 525, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button2 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 675, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button3 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 825, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button4 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 975, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button5 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1125, 25, SCALE 	/ 16 * 32, SCALE / 16 * 32);
+		button6 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1275, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		button7 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1425, 25, SCALE / 16 * 32, SCALE / 16 * 32);
+		arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16);
 		player = new Player(window, camera, library.getTexture("Samby.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
 	}
 	
@@ -32,6 +45,16 @@ public class PlayPanel {
 	public void update() {
 		//Updates player
 		player.update();
+		//Updates Button
+		button.update(library);
+		button1.update(library);
+		button2.update(library);
+		button3.update(library);
+		button4.update(library);
+		button5.update(library);
+		button6.update(library);
+		button7.update(library);
+		arrowButton.update(library);
 		//Checks collision
 		checkPlayerCollision();
 		//Sets the camera position putting the player in the center
@@ -63,6 +86,17 @@ public class PlayPanel {
 		//Renders the player and the HUD
 		player.render();
 		hud.render();
+		button.render();
+		button1.render();
+		button2.render();
+		button3.render();
+		button4.render();
+		button5.render();
+		button6.render();
+		button7.render();
+		arrowButton.render();
+		plate.render();
+		
 	}
 	
 	//Checks player hitbox against the nearest block and adjusts position accordingly

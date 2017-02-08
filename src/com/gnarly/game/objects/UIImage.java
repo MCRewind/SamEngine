@@ -11,6 +11,7 @@ import com.gnarly.engine.display.Camera;
 public class UIImage {
 
 	private float x = 0, y = 0;
+	private float width = 0, height = 0;
 	private Camera camera;
 	private VAO vao;
 	private Texture texture;
@@ -22,6 +23,8 @@ public class UIImage {
 		this.camera = camera;
 		this.x = x;
 		this.y = y;
+		this.setWidth(width);
+		this.setHeight(height);
 		float[] vertices = new float[] {
 			0.0f,  0.0f,   1.0f, //TOP LEFT
 			0.0f,  height, 1.0f, //BOTTOM LEFT
@@ -43,7 +46,7 @@ public class UIImage {
 	
 	public void render() {
 		Matrix4f proj = new Matrix4f();
-		camera.getUnatransformedProjection().translate(new Vector3f(x, y, 0), proj);
+		camera.getUnatransformedProjection().translate(new Vector3f(getX(), y, 0), proj);
 		shader.setUniformMat4f("projection", proj);
 		texture.bind();
 		shader.enable();
@@ -53,12 +56,48 @@ public class UIImage {
 	}
 	
 	public void setPosition(float x, float y) {
-		this.x = x;
+		this.setX(x);
 		this.y = y;
 	}
 	
+	public float getX() {
+		return x;
+	}
+
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	public float getY() {
+		return y;
+	}
+
+	public void setY(float y) {
+		this.y = y;
+	}
+	
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public void setTexture(Texture texture) {
+		this.texture = texture;
+	}
+	
 	public void translate(float x, float y) {
-		this.x += x;
+		this.setX(this.getX() + x);
 		this.y += y;
 	}
 }

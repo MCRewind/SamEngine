@@ -7,7 +7,7 @@ import com.gnarly.engine.utils.Library;
 import com.gnarly.game.panels.PlayPanel;
 
 public class Main implements Runnable {
-
+ 
 	private Window window;
 	private Library library;
 	private Camera camera;
@@ -30,7 +30,7 @@ public class Main implements Runnable {
 	}
 	
 	private void init() {
-		camera = new Camera(960, 640);
+		camera = new Camera(1920, 1080);
 		window = new Window(camera, "Clatab Bunky Bab Mazgam", 1, true, false, false);
 		library = new Library("res/img", "res/shader");
 		panel = new PlayPanel(camera, window, library);
