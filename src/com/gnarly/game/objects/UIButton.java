@@ -10,14 +10,20 @@ public class UIButton extends UIImage {
 
 	private Window window;
 	
+	private Camera camera;
+	
 	private Texture up, down, hover;
 	
-	public UIButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height) {
+	private int type;
+	
+	public UIButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height, int type) {
 		super(camera, texture, shader, x, y, width, height);
 		this.window = window;
+		this.camera = camera;
 		this.up = up;
 		this.down = down;
 		this.hover = hover;
+		this.type = type;
 	}
 
 	public void update(Library library) {

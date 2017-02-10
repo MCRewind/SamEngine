@@ -2,10 +2,8 @@ package com.gnarly.game;
 
 import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
-import com.gnarly.engine.utils.Hitbox;
 import com.gnarly.engine.utils.Library;
 import com.gnarly.game.panels.EditPanel;
-import com.gnarly.game.panels.PlayPanel;
 
 public class Main implements Runnable {
  

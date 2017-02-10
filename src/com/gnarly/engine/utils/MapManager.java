@@ -23,16 +23,11 @@ public class MapManager {
 				case "Brick Wall.png" :
 					intMap[i][j] = 1;
 					break;
-				case "Circular Wall.png " :
+				case "Circular Wall.png" :
+					System.out.println("circle");
 					intMap[i][j] = 2;
 					break;
 				}
-			}
-		}
-		
-		for (int i = 0; i < intMap.length; i++) {
-			for (int j = 0; j < intMap.length; j++) {
-				System.out.println(intMap[i][j]);
 			}
 		}
 		
@@ -56,11 +51,6 @@ public class MapManager {
 			//Read arrays from a binary file
 		    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName + ".dat"));
 		    ia = (int[][]) (ois.readObject());
-		    for (int i = 0; i < ia.length; i++) {
-				for (int j = 0; j < ia.length; j++) {
-					System.out.println(ia[i][j]);
-				}
-			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -79,7 +69,7 @@ public class MapManager {
 						map[k][k2] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
 						break;
 					case 2 :
-						map[k][k2] = new Tile(camera, library.getTexture("Circular Wall.png "), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
+						map[k][k2] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
 						break;
 				}
 			}

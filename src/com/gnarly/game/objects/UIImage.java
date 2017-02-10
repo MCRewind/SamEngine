@@ -55,6 +55,14 @@ public class UIImage {
 		texture.unbind();
 	}
 	
+	public boolean within(int x, int y) {
+		if ((x > this.x && x < this.x+this.width) && (y > this.y && y < this.y+this.height)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void setPosition(float x, float y) {
 		this.setX(x);
 		this.y = y;
