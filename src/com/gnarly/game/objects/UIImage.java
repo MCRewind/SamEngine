@@ -23,8 +23,8 @@ public class UIImage {
 		this.camera = camera;
 		this.x = x;
 		this.y = y;
-		this.setWidth(width);
-		this.setHeight(height);
+		this.width = width;
+		this.height = height;
 		float[] vertices = new float[] {
 			0.0f,  0.0f,   1.0f, //TOP LEFT
 			0.0f,  height, 1.0f, //BOTTOM LEFT

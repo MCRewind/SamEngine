@@ -18,21 +18,21 @@ public class SelectorButton extends UIButton {
 		this.id = id;
 	}
 	
-	public void onPress(Library library) {
-		super.onPress(library);
+	public void onPress() {
+		super.onPress();
 		selected.setId(id);
 	}
 	
-	public void onRelease(Library library) {
-		super.onRelease(library);	
+	public void onRelease() {
+		super.onRelease();	
 	}
 	
-	public void onHover(Library library) {
-		super.onHover(library);
+	public void onHover() {
+		super.onHover();
 	}
 	
-	public void onLeave(Library library) {
-		super.onLeave(library);
+	public void onLeave() {
+		super.onLeave();
 	}
 
 }

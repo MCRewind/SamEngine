@@ -24,7 +24,6 @@ public class EditPanel {
 	private Camera camera;
 	private Library library;
 	private Tile[][] map;
-	private UIImage hud;
 	private UIImage plate;
 	private UIImage brickSelect;
 	private UIImage circleBrickSelect;
@@ -39,7 +38,6 @@ public class EditPanel {
 		this.camera = camera;
 		this.library = library;
 		this.window = window;
-		hud = new UIImage(camera, library.getTexture("HUD.png"), library.getShader("default"), 10, 10, SCALE / 16 * 50, SCALE / 16 * 25);
 		plate = new UIImage(camera, library.getTexture("Plate.png"), library.getShader("default"), 350, 10, SCALE / 16 * 316, SCALE / 16 * 40);
 		brickSelect = new UIImage(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), 418, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		circleBrickSelect = new UIImage(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), 558, 58, SCALE / 16 * 16, SCALE / 16 * 16);
@@ -58,14 +56,14 @@ public class EditPanel {
 	//Updates all the elements of the panel nad the camera
 	public void update() {
 		//Updates Button
-		button.update(library);
-		button1.update(library);
-		button2.update(library);
-		button3.update(library);
-		button4.update(library);
-		button5.update(library);
-		button6.update(library);
-		button7.update(library);
+		button.update();
+		button1.update();
+		button2.update();
+		button3.update();
+		button4.update();
+		button5.update();
+		button6.update();
+		button7.update();
 		
 		setTile();
 		
@@ -86,7 +84,7 @@ public class EditPanel {
 		if (window.isKeyPressed(GLFW_KEY_K))
 			this.map = mapManager.loadMap("map", camera, library, (int) SCALE);
 		
-		arrowButton.update(library);
+		arrowButton.update();
 		//Checks that the camera is notgoing past the edge of the map and adjusting the camera position if neccessary
 		if(camera.getX() < 0)
 			camera.setPosition(0, camera.getY(), 0);
@@ -112,7 +110,6 @@ public class EditPanel {
 			}
 		}
 		//Renders and the HUD
-		hud.render();
 		brickSelect.render();
 		circleBrickSelect.render();
 		floorSelect.render();

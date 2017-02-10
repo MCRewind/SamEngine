@@ -26,33 +26,33 @@ public class UIButton extends UIImage {
 		this.type = type;
 	}
 
-	public void update(Library library) {
+	public void update() {
 		if ((window.getMouseCoords().x > this.getX() && window.getMouseCoords().x < getX()+getWidth()) && (window.getMouseCoords().y > this.getY() && window.getMouseCoords().y < getY()+getHeight())) {
-			onHover(library);
+			onHover();
 			if (window.isMousePressed(0)) {
-				onPress(library);
+				onPress();
 			}
 		} else {
-			onLeave(library);
+			onLeave();
 			if (window.isMousePressed(0)) {
-				onRelease(library);
+				onRelease();
 			}
 		}
 	}
 	
-	public void onPress(Library library) {
+	public void onPress() {
 		setTexture(down);
 	}
 	
-	public void onRelease(Library library) {
+	public void onRelease() {
 		setTexture(up);
 	}
 	
-	public void onHover(Library library) {
+	public void onHover() {
 		setTexture(hover);
 	}
 	
-	public void onLeave(Library library) {
+	public void onLeave() {
 		setTexture(up);
 	}
 	
