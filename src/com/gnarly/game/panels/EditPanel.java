@@ -17,7 +17,7 @@ import com.gnarly.game.objects.Tile;
 import com.gnarly.game.objects.UIButton;
 import com.gnarly.game.objects.UIImage;
 
-public class EditPanel {
+public class EditPanel extends GenericPanel {
 
 	private final float SCALE = 64;
 	private int width = 32, height = 32;

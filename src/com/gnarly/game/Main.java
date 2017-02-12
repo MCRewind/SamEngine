@@ -4,14 +4,16 @@ import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
 import com.gnarly.engine.utils.Library;
 import com.gnarly.game.panels.EditPanel;
+import com.gnarly.game.panels.GenericPanel;
 import com.gnarly.game.panels.MainMenu;
+import com.gnarly.game.panels.PlayPanel;
 
 public class Main implements Runnable {
  
-	private Window window;
-	private Library library;
-	private Camera camera;
-	private EditPanel panel;
+	private static Window window;
+	private static Library library;
+	private static Camera camera;
+	private static GenericPanel panel;
 	private Thread gameLoop;
 	private int[][] map = new int[32][32];
 	
@@ -33,17 +35,19 @@ public class Main implements Runnable {
 		camera = new Camera(1920, 1080);
 		window = new Window(camera, "Clatab Bunky Bab Mazgam", 1, true, false, true);
 		library = new Library("res/img", "res/shader");
-		//Creates the map and loads it into panel
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[0].length; j++) {
-				if(i == 0 || j == 0 || i == map.length - 1 || j == map.length - 1)
-					map[i][j] = 1;
-				else if(i == j || i - 2 == j + 1)
-					map[i][j] = 2;
-				else
-					map[i][j] = 0;
-			}
-		}
+		panel = new MainMenu(camera, window, library);
+	}
+	
+	public static void menuInit() {
+		panel = new MainMenu(camera, window, library);
+	}
+	
+	public static void playInit() {
+		panel = new PlayPanel(camera, window, library);
+		panel.setMap();
+	}
+	
+	public static void editInit() {
 		panel = new EditPanel(camera, window, library);
 		panel.setMap();
 	}

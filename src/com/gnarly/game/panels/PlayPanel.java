@@ -14,7 +14,7 @@ import com.gnarly.game.objects.UIButton;
 import com.gnarly.game.objects.UIImage;
 import com.sun.java.swing.plaf.windows.resources.windows;
 
-public class PlayPanel {
+public class PlayPanel extends GenericPanel {
 
 	private final float SCALE = 64;
 	private int width = 32, height = 32;
