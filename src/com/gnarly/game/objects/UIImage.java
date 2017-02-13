@@ -25,28 +25,32 @@ public class UIImage {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		float[] vertices = new float[] {
-			0.0f,  0.0f,   1.0f, //TOP LEFT
-			0.0f,  height, 1.0f, //BOTTOM LEFT
-			width, height, 1.0f, //BOTTOM RIGHT
-			width, 0.0f,   1.0f  //TOP RIGHT
-		};
-		int[] indices = new int[] {
-			0, 1, 3,
-			1, 2, 3
-		};
-		int[] texCoords = new int[] {
-			0, 0,
-			0, 1,
-			1, 1,
-			1, 0
-		};
- 		vao = new VAO(vertices, indices, texCoords);
+		makeVAO();
  	}
+	
+	public void makeVAO() {
+		float[] vertices = new float[] {
+				0.0f,  0.0f,   1.0f, //TOP LEFT
+				0.0f,  height, 1.0f, //BOTTOM LEFT
+				width, height, 1.0f, //BOTTOM RIGHT
+				width, 0.0f,   1.0f  //TOP RIGHT
+			};
+			int[] indices = new int[] {
+				0, 1, 3,
+				1, 2, 3
+			};
+			int[] texCoords = new int[] {
+				0, 0,
+				0, 1,
+				1, 1,
+				1, 0
+			};
+	 		vao = new VAO(vertices, indices, texCoords);
+	}
 	
 	public void render() {
 		Matrix4f proj = new Matrix4f();
-		camera.getUnatransformedProjection().translate(new Vector3f(getX(), y, 0), proj);
+		camera.getUnatransformedProjection().translate(new Vector3f(x, y, 0), proj);
 		shader.setUniformMat4f("projection", proj);
 		texture.bind();
 		shader.enable();

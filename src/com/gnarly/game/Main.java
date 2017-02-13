@@ -17,6 +17,8 @@ public class Main implements Runnable {
 	private Thread gameLoop;
 	private int[][] map = new int[32][32];
 	
+	static int noInput = 15;
+	
 	public Main() {
 		gameLoop = new Thread(this);
 		gameLoop.start();
@@ -25,7 +27,11 @@ public class Main implements Runnable {
 	public void run() {
 		init();
 		while(!window.shouldClose()) {
-			update();
+			if(noInput == 15) {
+				update();
+			} else {
+				noInput++;
+			}
 			render();
 		}
 		window.cleanup();
@@ -39,6 +45,7 @@ public class Main implements Runnable {
 	}
 	
 	public static void menuInit() {
+		noInput = 0;
 		panel = new MainMenu(camera, window, library);
 	}
 	

@@ -13,12 +13,16 @@ public class LoaderButton extends UIButton {
 	int panelId;
 	
 	public LoaderButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height, int panelId) {
-		super(camera, texture, shader, window, up, down, hover, x, y, width, height, 1);
+		super(camera, texture, shader, window, up, down, hover, x, y, width, height, 1, true);
 		this.panelId = panelId;
 	}
 	
 	public void onPress() {
 		super.onPress();
+	}
+	
+	public void onRelease() {
+		super.onRelease();	
 		switch (panelId) {
 		case 0:
 			Main.menuInit();
@@ -30,10 +34,6 @@ public class LoaderButton extends UIButton {
 			Main.editInit();
 			break;
 		}
-	}
-	
-	public void onRelease() {
-		super.onRelease();	
 	}
 	
 	public void onHover() {

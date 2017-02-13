@@ -13,7 +13,7 @@ public class SelectorButton extends UIButton {
 	int id;
 	
 	public SelectorButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height, int id, Selected selected) {
-		super(camera, texture, shader, window, up, down, hover, x, y, width, height, id);
+		super(camera, texture, shader, window, up, down, hover, x, y, width, height, id, true);
 		this.selected = selected;
 		this.id = id;
 	}

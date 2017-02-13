@@ -8,6 +8,7 @@ import com.gnarly.engine.display.Window;
 import com.gnarly.engine.utils.Hitbox;
 import com.gnarly.engine.utils.Library;
 import com.gnarly.engine.utils.MapManager;
+import com.gnarly.game.objects.LoaderButton;
 import com.gnarly.game.objects.Player;
 import com.gnarly.game.objects.Tile;
 import com.gnarly.game.objects.UIButton;
@@ -22,18 +23,41 @@ public class PlayPanel extends GenericPanel {
 	private Library library;
 	private Tile[][] map;
 	private Player player;
-	private UIImage hud;
+	private Window window;
+	private UIImage hud, pauseMenu;
+	private UIButton pauseButton;
+	private LoaderButton homeButton;
 	private MapManager mapManager = new MapManager();
+	
+	private boolean paused = false;
 	
 	public PlayPanel(Camera camera, Window window, Library library) {
 		this.camera = camera;
 		this.library = library;
-		hud = new UIImage(camera, library.getTexture("HUD.png"), library.getShader("default"), 10, 10, SCALE / 16 * 50, SCALE / 16 * 25);
+		this.window = window;
+		pauseMenu = new UIImage(camera, library.getTexture("PauseMenu.png"), library.getShader("default"), window.getWidth()/2-(SCALE / 8 * 144)/2, window.getHeight()/2-(SCALE / 8 * 108)/2, SCALE / 8 * 144, SCALE / 8 * 108);
 		player = new Player(window, camera, library.getTexture("Gnarly.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
+		pauseButton = new UIButton(camera, library.getTexture("PauseButtonUp.png"), library.getShader("default"), window, library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"), 25, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1, paused);
+		homeButton = new LoaderButton(camera, library.getTexture("HomeButtonUp.png"), library.getShader("default"), window, library.getTexture("HomeButtonUp.png"), library.getTexture("HomeButtonDown.png"), library.getTexture("HomeButtonUpHover.png"), (window.getWidth()/2)-3*(SCALE / 16 * 32), window.getHeight()/2, SCALE / 8 * 32, SCALE / 8 * 32, 0);
 	}
 	
 	//Updates all the elements of the panel nad the camera
 	public void update() {
+		if(pauseButton.getAffector()) {
+			pauseButton.setTextures(library.getTexture("ResumeButtonUp.png"), library.getTexture("ResumeButtonDown.png"), library.getTexture("ResumeButtonUpHover.png"));
+			pauseButton.setPosition((window.getWidth()/2)+SCALE / 16 * 32, window.getHeight()/2);
+			pauseButton.setWidth(SCALE / 8 * 32);
+			pauseButton.setHeight(SCALE / 8 * 32);
+			pauseButton.makeVAO();
+			homeButton.update();
+		} else {
+			pauseButton.setTextures(library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"));
+			pauseButton.setPosition(25, 25);
+			pauseButton.setWidth(SCALE / 16 * 32);
+			pauseButton.setHeight(SCALE / 16 * 32);
+			pauseButton.makeVAO();
+		}
+		pauseButton.update();
 		//Updates player
 		player.update();
 		//Checks collision
@@ -65,8 +89,13 @@ public class PlayPanel extends GenericPanel {
 			}
 		}
 		//Renders the player and the HUD
+		pauseButton.render();
+		if(pauseButton.getAffector()) {
+			homeButton.render();
+			pauseMenu.render();
+		}
+		
 		player.render();
-		hud.render();	
 	}
 	
 	//Checks player hitbox against the nearest block and adjusts position accordingly

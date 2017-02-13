@@ -2,15 +2,16 @@ package com.gnarly.game.panels;
 
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_D;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_J;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_K;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_S;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_W;
 
 import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
 import com.gnarly.engine.utils.Library;
 import com.gnarly.engine.utils.MapManager;
+import com.gnarly.game.objects.LoaderButton;
 import com.gnarly.game.objects.Selected;
 import com.gnarly.game.objects.SelectorButton;
 import com.gnarly.game.objects.Tile;
@@ -28,11 +29,15 @@ public class EditPanel extends GenericPanel {
 	private UIImage brickSelect;
 	private UIImage circleBrickSelect;
 	private UIImage floorSelect;
+	private UIImage pauseMenu;
 	private SelectorButton button, button1;
-	private UIButton button2, button3, button4, button5, button6, button7, arrowButton;
+	private LoaderButton homeButton;
+	private UIButton button2, button3, button4, button5, button6, button7, arrowButton, pauseButton, resumeButton;
 	private Window window;
 	MapManager mapManager = new MapManager();
 	Selected selected = new Selected();
+	
+	boolean paused = false;
 	
 	public EditPanel(Camera camera, Window window, Library library) {
 		this.camera = camera;
@@ -42,15 +47,18 @@ public class EditPanel extends GenericPanel {
 		brickSelect = new UIImage(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), 418, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		circleBrickSelect = new UIImage(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), 558, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		floorSelect = new UIImage(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), 708, 58, SCALE / 16 * 16, SCALE / 16 * 16);
+		pauseMenu = new UIImage(camera, library.getTexture("PauseMenu.png"), library.getShader("default"), window.getWidth()/2-(SCALE / 8 * 144)/2, window.getHeight()/2-(SCALE / 8 * 108)/2, SCALE / 8 * 144, SCALE / 8 * 108);
 		button = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 385, 25, SCALE / 16 * 32, SCALE / 16 * 32, 0, selected);
 		button1 = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 525, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1, selected);
-		button2 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 675, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
-		button3 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 825, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
-		button4 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 975, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
-		button5 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1125, 25, SCALE 	/ 16 * 32, SCALE / 16 * 32, 1);
-		button6 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1275, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
-		button7 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1425, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
-		arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16, 0);
+		//button2 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 675, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
+		//button3 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 825, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
+		//button4 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 975, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
+		//button5 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1125, 25, SCALE 	/ 16 * 32, SCALE / 16 * 32, 1);
+		//button6 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1275, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
+		//button7 = new UIButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1425, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1);
+		//arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16, 0);
+		pauseButton = new UIButton(camera, library.getTexture("PauseButtonUp.png"), library.getShader("default"), window, library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"), 25, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1, paused);
+		homeButton = new LoaderButton(camera, library.getTexture("HomeButtonUp.png"), library.getShader("default"), window, library.getTexture("HomeButtonUp.png"), library.getTexture("HomeButtonDown.png"), library.getTexture("HomeButtonUpHover.png"), (window.getWidth()/2)-3*(SCALE / 16 * 32), window.getHeight()/2, SCALE / 8 * 32, SCALE / 8 * 32, 0);
 	}
 	
 	//Updates all the elements of the panel nad the camera
@@ -58,12 +66,27 @@ public class EditPanel extends GenericPanel {
 		//Updates Button
 		button.update();
 		button1.update();
-		button2.update();
+		/*button2.update();
 		button3.update();
 		button4.update();
 		button5.update();
 		button6.update();
-		button7.update();
+		button7.update();*/
+		if(pauseButton.getAffector()) {
+			pauseButton.setTextures(library.getTexture("ResumeButtonUp.png"), library.getTexture("ResumeButtonDown.png"), library.getTexture("ResumeButtonUpHover.png"));
+			pauseButton.setPosition((window.getWidth()/2)+SCALE / 16 * 32, window.getHeight()/2);
+			pauseButton.setWidth(SCALE / 8 * 32);
+			pauseButton.setHeight(SCALE / 8 * 32);
+			pauseButton.makeVAO();
+			homeButton.update();
+		} else {
+			pauseButton.setTextures(library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"));
+			pauseButton.setPosition(25, 25);
+			pauseButton.setWidth(SCALE / 16 * 32);
+			pauseButton.setHeight(SCALE / 16 * 32);
+			pauseButton.makeVAO();
+		}
+		pauseButton.update();
 		
 		setTile();
 		
@@ -84,7 +107,7 @@ public class EditPanel extends GenericPanel {
 		if (window.isKeyPressed(GLFW_KEY_K))
 			this.map = mapManager.loadMap("map", camera, library, (int) SCALE);
 		
-		arrowButton.update();
+	//	arrowButton.update();
 		//Checks that the camera is notgoing past the edge of the map and adjusting the camera position if neccessary
 		if(camera.getX() < 0)
 			camera.setPosition(0, camera.getY(), 0);
@@ -109,19 +132,24 @@ public class EditPanel extends GenericPanel {
 				map[i][j].render();
 			}
 		}
-		//Renders and the HUD
+		//Renders the HUD
+		pauseButton.render();
+		if(pauseButton.getAffector()) {
+			homeButton.render();
+			pauseMenu.render();
+		}
 		brickSelect.render();
 		circleBrickSelect.render();
 		floorSelect.render();
 		button.render();
 		button1.render();
-		button2.render();
+		/*button2.render();
 		button3.render();
 		button4.render();
 		button5.render();
 		button6.render();
 		button7.render();
-		arrowButton.render();
+		arrowButton.render();*/
 		plate.render();
 	}
 
@@ -129,7 +157,7 @@ public class EditPanel extends GenericPanel {
 		int x = (int)((window.getMouseCoords().x + camera.getX()) / SCALE);
 		int y = (int)((window.getMouseCoords().y + camera.getY()) / SCALE);
 		
-		if(!(plate.within((int) window.getMouseCoords().x, (int) window.getMouseCoords().y))) {
+		if(!(plate.within((int) window.getMouseCoords().x, (int) window.getMouseCoords().y)) && !(pauseButton.within((int) window.getMouseCoords().x, (int) window.getMouseCoords().y))) {
 			if (window.isMousePressed(0)) {			
 				switch (selected.getId()) {
 				case 0:
