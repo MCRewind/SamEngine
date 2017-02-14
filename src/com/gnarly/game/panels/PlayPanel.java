@@ -22,6 +22,7 @@ public class PlayPanel extends GenericPanel {
 	private Camera camera;
 	private Library library;
 	private Tile[][] map;
+	private Tile[][] backMap;
 	private Player player;
 	private Window window;
 	private UIImage hud, pauseMenu;
@@ -36,7 +37,7 @@ public class PlayPanel extends GenericPanel {
 		this.library = library;
 		this.window = window;
 		pauseMenu = new UIImage(camera, library.getTexture("PauseMenu.png"), library.getShader("default"), window.getWidth()/2-(SCALE / 8 * 144)/2, window.getHeight()/2-(SCALE / 8 * 108)/2, SCALE / 8 * 144, SCALE / 8 * 108);
-		player = new Player(window, camera, library.getTexture("Gnarly.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
+		player = new Player(window, camera, library.getTexture("Claytob.png"), library.getShader("default"), SCALE * 2, SCALE, SCALE, SCALE, width * SCALE, height * SCALE);
 		pauseButton = new UIButton(camera, library.getTexture("PauseButtonUp.png"), library.getShader("default"), window, library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"), 25, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1, paused);
 		homeButton = new LoaderButton(camera, library.getTexture("HomeButtonUp.png"), library.getShader("default"), window, library.getTexture("HomeButtonUp.png"), library.getTexture("HomeButtonDown.png"), library.getTexture("HomeButtonUpHover.png"), (window.getWidth()/2)-3*(SCALE / 16 * 32), window.getHeight()/2, SCALE / 8 * 32, SCALE / 8 * 32, 0);
 	}
@@ -143,5 +144,14 @@ public class PlayPanel extends GenericPanel {
 	//1 = Brick Wall
 	public void setMap() {
 		this.map = mapManager.loadMap("map", camera, library, (int) SCALE);
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map.length; j++) {
+				if(map[i][j].getTexture().getName().equals("Spawn Pad.png")) {
+					player.setPosition(map[i][j].getHitbox().getX(), map[i][j].getHitbox().getY());
+				}
+			}
+		}
+		
+		this.backMap = mapManager.loadMap("backMap", camera, library, (int) SCALE);
 	}
 }

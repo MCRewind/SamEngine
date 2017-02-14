@@ -14,6 +14,7 @@ import com.gnarly.engine.components.Texture;
 import com.gnarly.engine.components.VAO;
 import com.gnarly.engine.display.Camera;
 import com.gnarly.engine.display.Window;
+import com.gnarly.engine.utils.Chain;
 import com.gnarly.engine.utils.Hitbox;
 
 public class Player {
@@ -26,6 +27,7 @@ public class Player {
 	private VAO vao;
 	private Animation texture;
 	private Shader shader;
+	private Chain items;
 	
 	public Player(Window window, Camera camera, Texture texture, Shader shader, float x, float y, float width, float height, float rightBound, float bottomBound) {
 		this.texture = new Animation(texture);
@@ -39,6 +41,7 @@ public class Player {
 		this.rightBound = rightBound;
 		this.bottomBound = bottomBound;
 		this.hitbox = new Hitbox(x, y, width, height);
+		items = new Chain(this.hitbox, 1);
 		float[] vertices = new float[] {
 			0.0f,  0.0f,   0.5f, //TOP LEFT
 			0.0f,  height, 0.5f, //BOTTOM LEFT
@@ -116,6 +119,10 @@ public class Player {
 		vao.render();
 		shader.disable();
 		texture.unbind();
+	}
+	
+	public Chain getChain() {
+		return items;
 	}
 	
 	public void setPosition(float x, float y) {
