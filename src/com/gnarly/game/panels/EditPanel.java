@@ -60,7 +60,7 @@ public class EditPanel extends GenericPanel {
 		endPadSelect = new UIImage(camera, library.getTexture("End Pad.png"), library.getShader("default"), 858, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		stoneLockSelect = new UIImage(camera, library.getTexture("Stone Lock.png"), library.getShader("default"), 1008, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		goldLockSelect = new UIImage(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), 1158, 58, SCALE / 16 * 16, SCALE / 16 * 16);
-		stoneKeySelect = new UIImage(camera, library.getTexture("Stone Key.png"), library.getShader("default"), 1308, 58, SCALE / 16 * 16, SCALE / 16 * 16);
+		stoneKeySelect = new UIImage(camera, library.getTexture("Stone Key.png"), library.getShader("default"), 1308, 358, SCALE / 16 * 16, SCALE / 16 * 16);
 		goldKeySelect = new UIImage(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), 1458, 58, SCALE / 16 * 16, SCALE / 16 * 16);
 		pauseMenu = new UIImage(camera, library.getTexture("PauseMenu.png"), library.getShader("default"), window.getWidth()/2-(SCALE / 8 * 144)/2, window.getHeight()/2-(SCALE / 8 * 108)/2, SCALE / 8 * 144, SCALE / 8 * 108);
 		button = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 385, 25, SCALE / 16 * 32, SCALE / 16 * 32, 0, selected);
@@ -71,7 +71,7 @@ public class EditPanel extends GenericPanel {
 		button5 = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1125, 25, SCALE 	/ 16 * 32, SCALE / 16 * 32, 6, selected);
 		button6 = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1275, 25, SCALE / 16 * 32, SCALE / 16 * 32, 7, selected);
 		button7 = new SelectorButton(camera, library.getTexture("ButtonUp.png"), library.getShader("default"), window, library.getTexture("ButtonUp.png"), library.getTexture("ButtonDown.png"), library.getTexture("ButtonUpHover.png"), 1425, 25, SCALE / 16 * 32, SCALE / 16 * 32, 8, selected);
-		//arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16, 0);
+		arrowButton = new UIButton(camera, library.getTexture("ArrowButtonUp.png"), library.getShader("default"), window, library.getTexture("ArrowButtonUp.png"), library.getTexture("ArrowButtonDown.png"), library.getTexture("ArrowButtonUpHover.png"), 1563, 120, SCALE / 32 * 16, SCALE / 32 * 16, 0, false);
 		pauseButton = new UIButton(camera, library.getTexture("PauseButtonUp.png"), library.getShader("default"), window, library.getTexture("PauseButtonUp.png"), library.getTexture("PauseButtonDown.png"), library.getTexture("PauseButtonUpHover.png"), 25, 25, SCALE / 16 * 32, SCALE / 16 * 32, 1, paused);
 		homeButton = new LoaderButton(camera, library.getTexture("HomeButtonUp.png"), library.getShader("default"), window, library.getTexture("HomeButtonUp.png"), library.getTexture("HomeButtonDown.png"), library.getTexture("HomeButtonUpHover.png"), (window.getWidth()/2)-3*(SCALE / 16 * 32), window.getHeight()/2, SCALE / 8 * 32, SCALE / 8 * 32, 0);
 	}
@@ -141,7 +141,7 @@ public class EditPanel extends GenericPanel {
 		int maxX = (int) ((camera.getX() + camera.getWidth()) / SCALE);
 		int minY = (int) (camera.getY() / SCALE);
 		int maxY = (int) ((camera.getY() + camera.getHeight()) / SCALE);
-		//Renders teh map
+		//Renders the map
 		for (int i = Math.max(minX, 0); i <= maxX && i < map.length; i++) {
 			for (int j = Math.max(minY, 0); j <= maxY && j < map[0].length; j++) {
 				map[i][j].render();
@@ -166,7 +166,7 @@ public class EditPanel extends GenericPanel {
 		endPadSelect.render();
 		stoneLockSelect.render();
 		goldLockSelect.render();
-		stoneKeySelect.render();
+		//stoneKeySelect.render();
 		goldLockSelect.render();
 		button.render();
 		button1.render();
@@ -176,7 +176,7 @@ public class EditPanel extends GenericPanel {
 		button5.render();
 		button6.render();
 		button7.render();
-		//arrowButton.render();
+		arrowButton.render();
 		plate.render();
 	}
 
@@ -188,31 +188,31 @@ public class EditPanel extends GenericPanel {
 			if (window.isMousePressed(0)) {			
 				switch (selected.getId()) {
 				case 0:
-					map[x][y] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true);
+					map[x][y] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true, false);
 					break;
 				case 1:
-					map[x][y] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true);
+					map[x][y] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true, false);
 					break;
 				case 2:
-					map[x][y] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
+					map[x][y] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false, false);
 					break;
 				case 3:
 					if (isStart == false) {
-						map[x][y] = new Tile(camera, library.getTexture("Spawn Pad.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
+						map[x][y] = new Tile(camera, library.getTexture("Spawn Pad.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false, false);
 						isStart = true;
 					}
 					break;
 				case 4:
 					if (isEnd == false) {
-						map[x][y] = new Tile(camera, library.getTexture("End Pad.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
+						map[x][y] = new Tile(camera, library.getTexture("End Pad.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false, false);
 						isEnd = true;
 					}
 					break;
 				case 5:
-					map[x][y] = new Tile(camera, library.getTexture("Stone Lock.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true);
+					map[x][y] = new Tile(camera, library.getTexture("Stone Lock.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, true, false);
 					break;
 				case 6:
-					map[x][y] = new Tile(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
+					map[x][y] = new Tile(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false, false);
 					break;
 				case 7:
 					map[x][y] = new Item(camera, library.getTexture("Stone Key.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
@@ -227,7 +227,7 @@ public class EditPanel extends GenericPanel {
 				} else if (map[x][y].getTexture() == library.getTexture("End Pad.png")) {
 					isEnd = false;
 				}
-				map[x][y] = new Tile(camera, library.getTexture("Samby.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false);
+				map[x][y] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), x * SCALE, y * SCALE, SCALE, SCALE, false, false);
 			}
 		}
 	}
@@ -244,7 +244,7 @@ public class EditPanel extends GenericPanel {
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map.length; j++) {
 				if (map[i][j].getTexture().getName().equals("Stone Floor.png")) {
-					map[i][j] = new Tile(camera, library.getTexture("INVIS.png"), library.getShader("default"), i * SCALE, j * SCALE, 1, 1, false);
+					map[i][j] = new Tile(camera, library.getTexture("INVIS.png"), library.getShader("default"), i * SCALE, j * SCALE, 1, 1, false, false);
 				}
 			}
 		}

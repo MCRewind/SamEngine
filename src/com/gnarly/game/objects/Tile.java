@@ -19,7 +19,7 @@ public class Tile {
 	private Texture texture;
 	private Shader shader;
 	
-	public Tile(Camera camera, Texture texture, Shader shader, float x, float y, float width, float height, boolean solid) {
+	public Tile(Camera camera, Texture texture, Shader shader, float x, float y, float width, float height, boolean solid, boolean transparency) {
 		this.texture = texture;
 		this.shader = shader;
 		this.camera = camera;
@@ -27,11 +27,12 @@ public class Tile {
 		this.y = y;
 		this.solid = solid;
 		hitbox = new Hitbox(x, y, width, height);
+		float z = transparency ? 0.1f : 0;
 		float[] vertices = new float[] {
-			0.0f,  0.0f,   0.0f, //TOP LEFT
-			0.0f,  height, 0.0f, //BOTTOM LEFT
-			width, height, 0.0f, //BOTTOM RIGHT
-			width, 0.0f,   0.0f  //TOP RIGHT
+			0.0f,  0.0f,   z, //TOP LEFT
+			0.0f,  height, z, //BOTTOM LEFT
+			width, height, z, //BOTTOM RIGHT
+			width, 0.0f,   z  //TOP RIGHT
 		};
 		int[] indices = new int[] {
 			0, 1, 3,

@@ -26,22 +26,11 @@ public class Hitbox {
 				else
 					ret.x = -distance.x;
 			}
-			else if(distance.x < distance.y) {
-				if(correction.y > 0)
-					ret.y = distance.y;
-				else
-					ret.y = -distance.y;
-			}
 			else {
-				if(correction.x > 0)
-					ret.x = distance.x;
-				else
-					ret.x = -distance.x;
 				if(correction.y > 0)
 					ret.y = distance.y;
 				else
 					ret.y = -distance.y;
-				
 			}
 		}
 		return ret;

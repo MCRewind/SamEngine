@@ -87,27 +87,27 @@ public class MapManager {
 			for (int k2 = 0; k2 < ia[0].length; k2++) {
 				switch (ia[k][k2]) {
 					case 0 :
-						map[k][k2] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false);
+						map[k][k2] = new Tile(camera, library.getTexture("Stone Floor.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false, false);
 						break;
 					case 1 :
-						map[k][k2] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
+						map[k][k2] = new Tile(camera, library.getTexture("Brick Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true, false);
 						break;
 					case 2 :
-						map[k][k2] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
+						map[k][k2] = new Tile(camera, library.getTexture("Circular Wall.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true, false);
 						break;
 					case 3 :
 						isStart = true;
-						map[k][k2] = new Tile(camera, library.getTexture("Spawn Pad.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false);
+						map[k][k2] = new Tile(camera, library.getTexture("Spawn Pad.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false, false);
 						break;
 					case 4 :
 						isEnd = true;
-						map[k][k2] = new Tile(camera, library.getTexture("End Pad.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false);
+						map[k][k2] = new Tile(camera, library.getTexture("End Pad.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false, false);
 						break;
 					case 5 :
-						map[k][k2] = new Tile(camera, library.getTexture("Stone Lock.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
+						map[k][k2] = new Tile(camera, library.getTexture("Stone Lock.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true, false);
 						break;
 					case 6 :
-						map[k][k2] = new Tile(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true);
+						map[k][k2] = new Tile(camera, library.getTexture("Gold Lock.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, true, false);
 						break;
 					case 7 :
 						map[k][k2] = new Item(camera, library.getTexture("Stone Key.png"), library.getShader("default"), k * SCALE, k2 * SCALE, SCALE, SCALE, false);
