@@ -63,8 +63,8 @@ public class Window {
 		
 		glEnable(GL_DEPTH_TEST);
 		
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		 glEnable(GL_BLEND);
+	     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		System.out.println("OpenGL Version: " + glGetString(GL_VERSION));
 	}

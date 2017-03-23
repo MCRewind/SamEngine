@@ -15,8 +15,10 @@ public class UIButton extends UIImage {
 	private Texture up, down, hover;
 	
 	private int type;
+	private boolean affector;
+	private boolean pressed;
 	
-	public UIButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height, int type) {
+	public UIButton(Camera camera, Texture texture, Shader shader, Window window, Texture up, Texture down, Texture hover, float x, float y, float width, float height, int type, boolean affector) {
 		super(camera, texture, shader, x, y, width, height);
 		this.window = window;
 		this.camera = camera;
@@ -24,36 +26,51 @@ public class UIButton extends UIImage {
 		this.down = down;
 		this.hover = hover;
 		this.type = type;
+		this.affector = affector;
 	}
 
-	public void update(Library library) {
+	public void update() {
 		if ((window.getMouseCoords().x > this.getX() && window.getMouseCoords().x < getX()+getWidth()) && (window.getMouseCoords().y > this.getY() && window.getMouseCoords().y < getY()+getHeight())) {
-			onHover(library);
+			onHover();
 			if (window.isMousePressed(0)) {
-				onPress(library);
+				pressed = true;
+				onPress();
+			} else {
+				if (pressed) {
+					pressed = false;
+					onRelease();
+				}
 			}
 		} else {
-			onLeave(library);
-			if (window.isMousePressed(0)) {
-				onRelease(library);
-			}
+			onLeave();
 		}
 	}
 	
-	public void onPress(Library library) {
+	public boolean getAffector() {
+		return affector;
+	}
+	
+	public void onPress() {
 		setTexture(down);
 	}
 	
-	public void onRelease(Library library) {
+	public void onRelease() {
 		setTexture(up);
+		affector = !affector;
 	}
 	
-	public void onHover(Library library) {
+	public void onHover() {
 		setTexture(hover);
 	}
 	
-	public void onLeave(Library library) {
+	public void onLeave() {
 		setTexture(up);
+	}
+	
+	public void setTextures(Texture up, Texture down, Texture hover) {
+		this.up = up;
+		this.down = down;
+		this.hover = hover;
 	}
 	
 }
