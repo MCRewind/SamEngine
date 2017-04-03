@@ -21,7 +21,7 @@ public class MainMenu extends GenericPanel {
 		this.camera = camera;
 		this.library = library;
 		this.window = window;
-		background = new UIImage(camera, library.getTexture("Background.png"), library.getShader("default"), 0, 0, camera.getWidth(), camera.getHeight());
+		background = new UIImage(camera, library.getTexture("background.png"), library.getShader("default"), 0, 0, camera.getWidth(), camera.getHeight());
 		play = new LoaderButton(camera, library.getTexture("PlayButtonUp.png"), library.getShader("default"), window, library.getTexture("PlayButtonUp.png"), library.getTexture("PlayButtonDown.png"), library.getTexture("PlayButtonUpHover.png"), camera.getWidth()/2-(SCALE / 8 * 64)-20, camera.getHeight()/2, SCALE / 8 * 64, SCALE / 8 * 32, 1);
 		edit = new LoaderButton(camera, library.getTexture("EditButtonUp.png"), library.getShader("default"), window, library.getTexture("EditButtonUp.png"), library.getTexture("EditButtonDown.png"), library.getTexture("EditButtonUpHover.png"), (camera.getWidth()/2)+20, camera.getHeight()/2, SCALE / 8 * 64, SCALE / 8 * 32, 2);
 	}
